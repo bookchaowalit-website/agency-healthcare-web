@@ -1,0 +1,15 @@
+version: '3'
+
+tasks:
+  dev:
+    cmds:
+      - npm run dev
+  build:
+    cmds:
+      - npm run build
+  typecheck:
+    cmds:
+      - npm run typecheck
+  check:
+    cmds:
+      - npm run check

@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "mode": "persuade",
+  "world": "Clinical readiness surface",
+  "artifact": "clinical",
+  "tokens": {
+    "color": {
+      "bg": "#f3f8f6",
+      "ink": "#173e3d",
+      "muted": "#557674",
+      "line": "#b5d1cb",
+      "panel": "#dceee8",
+      "accent": "#e66b5b",
+      "inverse": "#185052",
+      "inverseInk": "#f0faf6"
+    },
+    "typography": {
+      "display": "Noto Serif Thai",
+      "body": "Noto Sans Thai",
+      "utility": "system monospace"
+    },
+    "spacing": {
+      "page": "clamp(18px, 5vw, 76px)",
+      "section": "clamp(67px, 10vw, 144px)"
+    },
+    "shape": {
+      "radius": "world-specific",
+      "elevation": "one deliberate surface system"
+    }
+  }
+}
