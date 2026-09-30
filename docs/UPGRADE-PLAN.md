@@ -45,3 +45,4 @@ Static showcase ทำงานครบ มี lint/typecheck/unit test/build �
     credentials. Such values are now rejected (site stays noindex).
   - Only one trailing slash was stripped, so `https://example.com//` produced
     `https://example.com//services/`; all trailing slashes are now stripped.
+- Security deps: `next` 16.3.3 -> 16.3.8 (and `eslint-config-next`) clears critical GHSA-vcvr-r3jv-pc5j (next/og `ImageResponse` RCE, 16.2.0-16.3.5); 16.3.3 was already past GHSA-2xp9-vwfh-vxw4; lockfile regenerated with same-major `npm audit fix`. `npm audit --omit=dev`: C1/H0/M0/L0 [next:c] -> C0/H0/M0/L0.
