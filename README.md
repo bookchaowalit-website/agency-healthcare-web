@@ -11,10 +11,14 @@
 ## Local
 
 ```bash
-npm install
-npm run check
+npm ci
+npm run check   # lint + typecheck + unit tests + static build
 npm run dev
 ```
+
+CI (`.github/workflows/ci.yml`) รัน `lint`, `typecheck`, `test` และ `build` ทุก pull request
+unit tests (`tests/site.test.ts`, `node:test`) ครอบคลุม indexing gate (noindex เป็นค่าเริ่มต้น),
+canonical metadata, sitemap path และการ escape JSON-LD
 
 Build ใช้ Next.js static export และสร้าง artifact ที่ `out/` สำหรับ deploy แบบ static บน Vercel
 
