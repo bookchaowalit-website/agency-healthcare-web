@@ -65,3 +65,19 @@ describe('social card text', () => {
     assert.equal((pageMetadata('t', 'd', '/') as { twitter?: { card?: string } }).twitter?.card, 'summary_large_image');
   });
 });
+
+describe('parsePublicUrl edge cases', () => {
+  it('rejects base URLs whose query, fragment or credentials would leak into canonical links', () => {
+    assert.equal(parsePublicUrl('https://example.com/?ref=x'), undefined);
+    assert.equal(parsePublicUrl('https://example.com/#top'), undefined);
+    assert.equal(parsePublicUrl('https://example.com/?'), undefined);
+    assert.equal(parsePublicUrl('https://user:secret@example.com'), undefined);
+  });
+
+  it('strips every trailing slash so paths never start with //', () => {
+    assert.equal(parsePublicUrl('https://example.com//'), 'https://example.com');
+    assert.equal(parsePublicUrl('https://example.com/base/'), 'https://example.com/base');
+    const config = resolveSiteConfig({ NEXT_PUBLIC_SITE_URL: 'https://example.com//' });
+    assert.equal(canonicalUrl('/services/', config), 'https://example.com/services/');
+  });
+});

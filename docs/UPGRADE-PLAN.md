@@ -36,3 +36,12 @@ Static showcase ทำงานครบ มี lint/typecheck/unit test/build �
 - Twitter card เปลี่ยนจาก `summary` เป็น `summary_large_image` ทั้ง layout และ `pageMetadata`
 - test ใหม่ใน `tests/site.test.ts`: ข้อความบน social card เป็น ASCII และทุกหน้าใช้ large card
 - ตรวจแล้วว่า sitemap/robots ใช้ pattern ที่ migrate แล้ว (`app/sitemap.ts`/`app/robots.ts` + `NEXT_PUBLIC_SITE_URL`, noindex เป็นค่าเริ่มต้น) — ไม่มีไฟล์ static ค้าง
+
+## Done in this pass (pass 3)
+- Edge-case pass on `lib/site-config.ts` (regression tests in `tests/site.test.ts`):
+  - `parsePublicUrl` accepted `NEXT_PUBLIC_SITE_URL` values with a query,
+    fragment or `user:password`; because paths are appended to that value,
+    canonical/sitemap URLs became `https://x/?ref=a/services/` or leaked the
+    credentials. Such values are now rejected (site stays noindex).
+  - Only one trailing slash was stripped, so `https://example.com//` produced
+    `https://example.com//services/`; all trailing slashes are now stripped.

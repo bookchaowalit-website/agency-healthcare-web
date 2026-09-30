@@ -3,14 +3,19 @@ import { site } from './site.ts';
 
 export type SiteEnv = Readonly<Record<string, string | undefined>>;
 
-/** Accept only absolute http(s) origins; strips a trailing slash. */
+/**
+ * Accept only absolute http(s) base URLs; strips trailing slashes. A query,
+ * fragment or user:password would end up inside every canonical/sitemap URL
+ * (paths are appended to this value), so those are rejected.
+ */
 export function parsePublicUrl(value: string | undefined) {
   const trimmed = value?.trim();
   if (!trimmed) return undefined;
   try {
     const url = new URL(trimmed);
     if (url.protocol !== 'https:' && url.protocol !== 'http:') return undefined;
-    return url.toString().replace(/\/$/, '');
+    if (url.search || url.hash || url.username || url.password || /[?#]/.test(trimmed)) return undefined;
+    return url.toString().replace(/\/+$/, '');
   } catch {
     return undefined;
   }
