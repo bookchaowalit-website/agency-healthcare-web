@@ -3,7 +3,7 @@
 ## สถานะปัจจุบัน: 8/10 (เดิม 6/10)
 
 Static showcase ทำงานครบ มี lint/typecheck/unit test/build ใน CI และ indexing gate
-ถูกทดสอบแล้ว; ยังไม่มี OG image และยังไม่ได้ยืนยัน public URL
+ถูกทดสอบแล้ว; มี OG image แล้ว แต่ยังไม่ได้ยืนยัน public URL
 
 ## Backlog
 
@@ -11,7 +11,6 @@ Static showcase ทำงานครบ มี lint/typecheck/unit test/build �
 - (ไม่มี)
 
 ### P1
-- เพิ่ม `app/opengraph-image.tsx` ตาม palette ใน `lib/site.ts` (ตอนนี้ card เป็น `summary` ไม่มีรูป)
 - ยืนยัน public URL ที่อนุมัติ แล้วตั้ง `NEXT_PUBLIC_SITE_URL` / `NEXT_PUBLIC_SITE_INDEXABLE` บน Vercel
 - ย้าย `Artifact` switch (ทุก motif ของทุก vertical) ออกเป็น component ร่วม
   หรือเก็บเฉพาะ motif ของ site นี้เพื่อลด dead code
@@ -30,3 +29,10 @@ Static showcase ทำงานครบ มี lint/typecheck/unit test/build �
   canonical/sitemap ใช้ path เดียวกัน, OG มี `locale`/`url`
 - breadcrumb เป็น `<nav aria-label>` พร้อม `aria-current`; หน้า 404 มีลิงก์กลับหน้าแรก
 - GitHub Actions CI และ task `lint`/`test` ใน Taskfile; ignore `*.tsbuildinfo`
+
+## Done in this pass (pass 2)
+- เพิ่ม `app/opengraph-image.tsx` (PNG 1200×630 สร้างตอน build, `force-static` รองรับ `output: 'export'`)
+  ใช้ palette/ชื่อ/scope จาก `lib/site.ts`; ข้อความเป็น ASCII เพราะ font ของ `ImageResponse` ไม่มี glyph ภาษาไทย
+- Twitter card เปลี่ยนจาก `summary` เป็น `summary_large_image` ทั้ง layout และ `pageMetadata`
+- test ใหม่ใน `tests/site.test.ts`: ข้อความบน social card เป็น ASCII และทุกหน้าใช้ large card
+- ตรวจแล้วว่า sitemap/robots ใช้ pattern ที่ migrate แล้ว (`app/sitemap.ts`/`app/robots.ts` + `NEXT_PUBLIC_SITE_URL`, noindex เป็นค่าเริ่มต้น) — ไม่มีไฟล์ static ค้าง

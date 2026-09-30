@@ -52,3 +52,16 @@ describe('public-safe content', () => {
     assert.equal(JSON.parse(json)[0].name, '</script><script>alert(1)</script>');
   });
 });
+
+describe('social card text', () => {
+  it('uses only ASCII strings, because the OG image font has no Thai glyphs', () => {
+    const ascii = /^[\x20-\x7e—·]+$/;
+    for (const text of [site.name, site.design.world, ...site.scope]) {
+      assert.match(text, ascii, text);
+    }
+  });
+
+  it('asks for a large card image on every page', () => {
+    assert.equal((pageMetadata('t', 'd', '/') as { twitter?: { card?: string } }).twitter?.card, 'summary_large_image');
+  });
+});
