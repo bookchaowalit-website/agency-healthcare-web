@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: { default: site.name + ' — ' + site.thaiName, template: '%s — ' + site.name },
   description: site.promise,
   openGraph: { type: 'website', locale: 'th_TH', siteName: site.name, title: site.name + ' — ' + site.thaiName, description: site.promise },
-  twitter: { card: 'summary', title: site.name + ' — ' + site.thaiName, description: site.promise },
+  twitter: { card: 'summary_large_image', title: site.name + ' — ' + site.thaiName, description: site.promise },
   ...(siteConfig.publicUrl ? { alternates: { canonical: siteConfig.publicUrl } } : {}),
   robots: siteConfig.isIndexable ? { index: true, follow: true } : { index: false, follow: false },
 };

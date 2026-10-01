@@ -7,6 +7,12 @@ tasks:
   build:
     cmds:
       - npm run build
+  lint:
+    cmds:
+      - npm run lint
+  test:
+    cmds:
+      - npm test
   typecheck:
     cmds:
       - npm run typecheck
